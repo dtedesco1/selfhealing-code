@@ -3,8 +3,7 @@ import os
 import re
 
 # Set the OpenAI API key
-# openai.api_key = os.environ.get("OPENAI_API_KEY")
-openai.api_key = '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' # This is a test key. Please use your own key.
+openai.api_key = open("key.txt", "r").read().strip("\n")
 
 # Define the function to generate the python code
 def generate_code(user_input):

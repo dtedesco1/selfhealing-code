@@ -3,7 +3,7 @@ import os
 import webbrowser
 
 # Set the OpenAI API key
-openai.api_key = os.environ.get("OPENAI_API_KEY", "OPENAI_API_KEY")
+openai.api_key = open("key.txt", "r").read().strip("\n")
 
 # Define the function to generate the webpage
 def generate_webpage(user_input):
