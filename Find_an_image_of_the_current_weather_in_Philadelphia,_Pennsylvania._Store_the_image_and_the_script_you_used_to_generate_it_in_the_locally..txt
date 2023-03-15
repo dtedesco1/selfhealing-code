@@ -1,0 +1,85 @@
+```python
+import requests
+import datetime
+import os
+
+# Enter your OpenWeatherMap API key here
+api_key = "<YOUR_API_KEY>"
+
+# Define the base URL
+base_url = "http://api.openweathermap.org/data/2.5/weather?"
+
+# Define the city and state
+city_name = "Philadelphia"
+state_code = "PA"
+units = "imperial"
+
+# Define the complete URL
+complete_url = f"{base_url}appid={api_key}&q={city_name},{state_code}&units={units}"
+
+# Send a GET request to the API
+response = requests.get(complete_url)
+
+# Parse the JSON response
+data = response.json()
+
+# Check if the 'weather' key exists in the response dictionary
+if 'weather' in data:
+    # Get the weather icon ID
+    icon_id = data['weather'][0]['icon']
+
+    # Set the image URL based on the weather icon ID
+    img_url = f"http://openweathermap.org/img/w/{icon_id}.png"
+
+    # Get the current date and time
+    now = datetime.datetime.now()
+    date_time = now.strftime("%Y_%m_%d_%H_%M_%S")
+
+    # Download the image and save it with a descriptive filename
+    img_data = requests.get(img_url).content
+    img_filename = f"{city_name.replace(' ', '_')}_{icon_id}_{date_time}.png"
+    with open(img_filename, 'wb') as handler:
+        handler.write(img_data)
+
+    # Save the script used to generate the image with a descriptive filename
+    script_filename = f"{city_name.replace(' ', '_')}_{icon_id}_{date_time}.py"
+    with open(script_filename, 'w') as handler:
+        handler.write(f"# Script used to generate the weather image for {city_name}, {state_code}\n\n")
+        handler.write("# Import necessary modules\n")
+        handler.write("import requests\n")
+        handler.write("import datetime\n\n")
+        handler.write("# Enter your OpenWeatherMap API key here\n")
+        handler.write(f"api_key = '{api_key}'\n\n")
+        handler.write("# Define the base URL\n")
+        handler.write(f"base_url = '{base_url}'\n\n")
+        handler.write("# Define the city and state\n")
+        handler.write(f"city_name = '{city_name}'\n")
+        handler.write(f"state_code = '{state_code}'\n")
+        handler.write(f"units = '{units}'\n\n")
+        handler.write("# Define the complete URL\n")
+        handler.write(f"complete_url = '{complete_url}'\n\n")
+        handler.write("# Send a GET request to the API\n")
+        handler.write("response = requests.get(complete_url)\n\n")
+        handler.write("# Parse the JSON response\n")
+        handler.write("data = response.json()\n\n")
+        handler.write("# Check if the 'weather' key exists in the response dictionary\n")
+        handler.write("if 'weather' in data:\n")
+        handler.write("\t# Get the weather icon ID\n")
+        handler.write("\ticon_id = data['weather'][0]['icon']\n\n")
+        handler.write("\t# Set the image URL based on the weather icon ID\n")
+        handler.write(f"\timg_url = 'http://openweathermap.org/img/w/{icon_id}.png'\n\n")
+        handler.write("\t# Get the current date and time\n")
+        handler.write("\tnow = datetime.datetime.now()\n")
+        handler.write("\tdate_time = now.strftime('%Y_%m_%d_%H_%M_%S')\n\n")
+        handler.write("\t# Download the image and save it with a descriptive filename\n")
+        handler.write("\timg_data = requests.get(img_url).content\n")
+        handler.write(f"\timg_filename = '{img_filename}'\n")
+        handler.write("\twith open(img_filename, 'wb') as handler:\n")
+        handler.write("\t\thandler.write(img_data)\n")
+        handler.write("\n# End of script\n")
+    
+    print(f"Weather image for {city_name}, {state_code} saved successfully as {img_filename}.")
+    print(f"Script used to generate the weather image saved successfully as {script_filename}.")
+else:
+    print("Weather data not found. Please try again later.")
+```
