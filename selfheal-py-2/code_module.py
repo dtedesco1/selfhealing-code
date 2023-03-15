@@ -9,6 +9,7 @@ def generate_code_prompt(input, suggestions):
 def generate_tests_prompt(input, code):
 	# generate a prompt asking the AI to write tests for the code to ensure it meets the user's needs
 	prompt = f"Write tests for the following code:\n{code}\n\nThe code should meet the following user need:\n{input}\n{code_generation_boilerplate} Your test code:"
+	return prompt
 
 
 # Define the function to generate the python code

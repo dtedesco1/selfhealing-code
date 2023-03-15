@@ -24,3 +24,18 @@ def generate_suggestions(prompt):
 	# Extract the generated script from the API response
 	response = response['choices'][0]['message']['content']
 	return response
+
+def generate_inputs():
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a bot that generates interesting coding challenges for other AI to develop working code for. You are not allowed to write code yourself. You can only generate prompts for other AI to write code for."},
+            {"role": "user", "content": "Please come up with an interesting coding challenge for another AI to solve you describe in a short prompt. Previous good examples include:\n- 'Find an image of the current weather in Philadelphia, Pennsylvania. Store the image and the script you used to generate it in the locally.'\n- 'I want to know the current total value of the top 10 cryptocurrencies. Can you find and show each of the top ten to me in the terminal?'\n- 'Get monthly unemployment rate data in the U.S. from https://data.bls.gov/timeseries/LNS14000000. Parse the table and print the data for 2022 in the terminal.' Can you come up with a new challenge? Be creative!"}],
+        max_tokens=3000,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+    # Extract the generated script from the API response
+    response = response['choices'][0]['message']['content']
+    return response
