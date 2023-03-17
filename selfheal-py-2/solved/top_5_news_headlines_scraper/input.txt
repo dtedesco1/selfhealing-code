@@ -1,0 +1,1 @@
+Create a script that scrapes the top 5 news headlines from a reputable news website, along with their URLs, and display them in a formatted list in the terminal.

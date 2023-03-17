@@ -1,0 +1,1 @@
+Monitor the trending news on a technology news website like https://techcrunch.com and create a script to output the current top 5 headlines along with their respective URLs in the terminal.

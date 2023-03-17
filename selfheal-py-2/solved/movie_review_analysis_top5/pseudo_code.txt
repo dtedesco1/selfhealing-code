@@ -1,0 +1,29 @@
+1. Import necessary libraries
+   - Import the `collections` library for counting the frequency of movie mentions.
+   - Import the `re` library for regular expressions to extract movie titles.
+   - Import the `sys` library to read the text file from command line arguments.
+
+2. Define a function to extract movie titles from the text file
+   - Create a function named `extract_movie_titles` that takes the file content as a parameter.
+   - Write a regular expression pattern that matches movie titles, assuming the titles are enclosed in double quotes.
+   - Use the `re.findall()` method to find all movie titles in the file content.
+   - Return the list of movie titles found.
+
+3. Define a function to count movie mentions
+   - Create a function named `count_movie_mentions` that takes the list of movie titles as a parameter.
+   - Instantiate a `collections.Counter` object to count the frequency of movie titles.
+   - Iterate through the movie titles list and update the `Counter` object.
+   - Return the `Counter` object.
+
+4. Define a function to display the top 5 most mentioned movies
+   - Create a function named `display_top_movies` that takes the `Counter` object as a parameter.
+   - Use the `most_common()` method of the `Counter` object to get the top 5 most mentioned movies along with their counts.
+   - Print the top 5 movies and their mention counts.
+
+5. Main script execution
+   - Check if the script is being run as the main program.
+   - Verify if a command line argument for the text file has been provided.
+   - Read the content of the text file and store it in a variable.
+   - Call the `extract_movie_titles` function with the file content as its argument, and store the returned movie titles list.
+   - Call the `count_movie_mentions` function with the movie titles list as its argument, and store the returned `Counter` object.
+   - Call the `display_top_movies` function with the `Counter` object as its argument.

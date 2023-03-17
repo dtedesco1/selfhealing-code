@@ -1,0 +1,1 @@
+Create a script that analyzes a given text file containing movie reviews and outputs the top 5 most commonly mentioned movies along with the number of times they were mentioned.

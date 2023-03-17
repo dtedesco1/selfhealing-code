@@ -1,0 +1,1 @@
+Create a program that generates a random maze of size n x n, where n is an input provided by the user. The maze should consist of open paths and walls, and have a unique start and end point. Once the maze is generated, find and display the shortest path from the start to the end using any pathfinding algorithm.

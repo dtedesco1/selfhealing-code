@@ -1,28 +1,37 @@
-import openai
-import suggest_module
-import code_module
-import test_module
-
-# Set the OpenAI API key
-openai.api_key = open("./key.txt", "r").read().strip("\n")
+import os
+from suggest import generate_inputs, generate_name
+from run import run
+import selfheal
 
 def main():
-    user_input = suggest_module.generate_inputs()
+    # user_input = generate_inputs()
+    user_input = "Use the Wikipedia API to search for the most popular tourist attractions in Paris, France. Display the top 5 results along with a brief description and a thumbnail image in the terminal."
     print(user_input)
-    pseudo_code_prompt = suggest_module.generate_pseudocode_prompt(user_input)
-    pseudo_code = suggest_module.generate_suggestions(pseudo_code_prompt)
-    print(pseudo_code)
+    pseudo_code, output, tests = selfheal.solve(user_input, 10)
 
-    response_prompt = code_module.generate_code_prompt(user_input, pseudo_code)
-    new_response = code_module.generate_code(response_prompt)
-    print(new_response)
+    # Run the solved code.
+    run(output)
 
-    tests_prompt = code_module.generate_tests_prompt(user_input, new_response)
-    new_tests = code_module.generate_code(tests_prompt)
-    print(new_tests)
-
-    test_results = test_module.run_tests(new_tests)
-    print(test_results)
+    # Store the pseudo_code, output, and tests in separate files in a new subdirectory.
+    # Generate a name for the subdirectory based on the first few words of the user_input.
+    name = generate_name(user_input)
+    # First, create the subdirectory if it doesn't exist already. If it exists, raise an error.
+    if os.path.exists(f'solved/{name}'):
+        raise Exception('The directory already exists.')
+    os.mkdir(f'solved/{name}')
+    # Then, create the files and write the code to them.
+    with open(f'solved/{name}/input.txt', 'w') as f:
+        f.write(user_input)
+    with open(f'solved/{name}/pseudo_code.txt', 'w') as f:
+        f.write(pseudo_code)
+    with open(f'solved/{name}/output.py', 'w') as f:
+        f.write(output)
+    with open(f'solved/{name}/tests.py', 'w') as f:
+        f.write(tests)
+    
+    # Delete the temporary files.
+    os.remove('output.py')
+    os.remove('tests.py')
 
 if __name__ == "__main__":
     main()
