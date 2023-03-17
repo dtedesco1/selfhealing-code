@@ -1,6 +1,6 @@
 import unittest
 from collections import Counter
-from temp_output import extract_movie_titles, count_movie_mentions, display_top_movies
+from output import extract_movie_titles, count_movie_mentions, display_top_movies
 
 class TestMovieMentions(unittest.TestCase):
 

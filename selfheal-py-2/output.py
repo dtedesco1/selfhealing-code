@@ -1,55 +1,38 @@
-def install_libraries():
-    try:
-        import requests
-    except ImportError:
-        import os
-        os.system("pip install requests")
+import random
 
-    try:
-        import wikipediaapi
-    except ImportError:
-        import os
-        os.system("pip install wikipedia-api")
+def number_guessing_game():
+    while True:
+        random_number = random.randint(1, 100)
+        attempts = 0
+        
+        print("Welcome to the number guessing game! Guess a number between 1 and 100. Type 'quit' or 'exit' to end the game.")
+        
+        while True:
+            user_input = input("Enter your guess: ")
+            
+            if user_input.lower() in ["quit", "exit"]:
+                print(f"Farewell! The correct number was {random_number}.")
+                break
+                
+            try:
+                guess = int(user_input)
+            except ValueError:
+                print("Invalid input. Please enter a number or 'quit'/'exit' to end the game.")
+                continue
+                
+            attempts += 1
+            
+            if guess == random_number:
+                print(f"Congratulations! You guessed the correct number {random_number} in {attempts} attempts.")
+                break
+            elif guess < random_number:
+                print("Too low! Guess higher.")
+            else:
+                print("Too high! Guess lower.")
+                
+        play_again = input("Do you want to play again? (yes/no): ")
+        if play_again.lower() != "yes":
+            print("Thanks for playing! Goodbye.")
+            break
 
-
-def search_attractions(query):
-    import wikipediaapi
-    wiki_api = wikipediaapi.Wikipedia('en')
-    page = wiki_api.page(query)
-    return page
-
-
-def extract_relevant_sections(page):
-    sections = [section for section in page.section_by_title('List of').sections]
-    return sections
-
-
-def parse_attractions(sections):
-    attractions = []
-    for section in sections:
-        text = section.text.split('\n')
-        for line in text:
-            if line:
-                title, description = line.split(': ')
-                attractions.append((title, description))
-                if len(attractions) >= 5:
-                    return attractions
-    return attractions
-
-
-def display_results(attractions):
-    for attraction in attractions:
-        print(f"{attraction[0]}: {attraction[1]}")
-
-
-def main():
-    install_libraries()
-    query = "Tourism_in_Paris"
-    page = search_attractions(query)
-    relevant_sections = extract_relevant_sections(page)
-    attractions = parse_attractions(relevant_sections)
-    display_results(attractions)
-
-
-if __name__ == "__main__":
-    main()
+number_guessing_game()
