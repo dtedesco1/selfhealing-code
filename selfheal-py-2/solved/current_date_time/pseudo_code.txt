@@ -1,0 +1,37 @@
+Here's a step-by-step plan to create a Python script that prints the current date and time in the terminal:
+
+1. Import the necessary modules: You will need the `datetime` module to get the current date and time.
+
+2. Create a function called `print_current_datetime`:
+   a. Inside this function, use the `datetime` module to get the current date and time. You can use the `datetime.datetime.now()` method to do this.
+   b. Format the date and time into a user-friendly string. You can use the `strftime` method to achieve this. You may use a format like "%Y-%m-%d %H:%M:%S" to display the date and time as: "2022-07-25 16:30:45".
+   c. Print the formatted date and time to the terminal.
+
+3. Call the `print_current_datetime` function inside the `if __name__ == "__main__":` block. This ensures that the function is called only when the script is executed directly and not when it's imported as a module in another script.
+
+4. Save the script as "output.py".
+
+5. For testing, create a separate "tests.py" file. You can test the `print_current_datetime` function to ensure it prints the date and time correctly. However, as it involves the current date and time, which is constantly changing, you may need to manually check the output to verify its correctness.
+
+Here's some pseudocode to help visualize the plan:
+
+```
+import datetime
+
+def print_current_datetime():
+    current_datetime = datetime.datetime.now()
+    formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    print(formatted_datetime)
+
+if __name__ == "__main__":
+    print_current_datetime()
+```
+
+And for the "tests.py" file:
+
+```
+import output
+
+# Manually check the output of the print_current_datetime function to ensure it's printing the current date and time correctly.
+output.print_current_datetime()
+```

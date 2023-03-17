@@ -6,7 +6,10 @@ def main():
     # user_input = generate_inputs()
     # user_input = "Use the Wikipedia API to search for the most popular tourist attractions in Paris, France. Display the top 5 results along with a brief description in the terminal."
     # user_input = "Monitor the International Space Station's (ISS) location in real time and display its position relative to my current location on Earth."
-    user_input = "Display one of today's top cat memes in the terminal."
+    # user_input = "Draw a blue circle inside of a light blue square."
+    # user_input = "Download and store locally one of today's top cat memes."
+    # user_input = "Count the number of times the word 'the' appears in the text of the Wikipedia page for the International Space Station."
+    user_input = "Find an image of the current weather in Philadelphia, Pennsylvania. Store the image and the script you used to generate it in the locally."
     print(user_input)
 
     # Solve the user_input.
