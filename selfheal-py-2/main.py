@@ -9,7 +9,8 @@ def main():
     # user_input = "Draw a blue circle inside of a light blue square."
     # user_input = "Download and store locally one of today's top cat memes."
     # user_input = "Count the number of times the word 'the' appears in the text of the Wikipedia page for the International Space Station."
-    user_input = "Find an image of the current weather in Philadelphia, Pennsylvania. Store the image and the script you used to generate it in the locally."
+    # user_input = "Find an image of the current weather in Philadelphia, Pennsylvania. Store the image and the script you used to generate it in the locally."
+    user_input = "Write a python script to solve the following without the need for any API keys: Find an image of the current weather in Philadelphia, Pennsylvania. Store the image locally."
     print(user_input)
 
     # Solve the user_input.

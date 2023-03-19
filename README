@@ -1,1 +1,3 @@
 Scripts that use OpenAI models to fix their own errors.
+
+Run the main.py file and watch GPT do it's work.
