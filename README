@@ -1,3 +1,7 @@
-Scripts that use OpenAI models to fix their own errors.
+Curious weekend experiment building scripts that use OpenAI models to fix their own errors.
 
 Run the main.py file and watch GPT do it's work.
+
+Create your own challenges by editing `user_input`, or get the bot to invent novel challenges for itself with the generate_input()` function.
+
+Open for contributions!
