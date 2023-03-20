@@ -1,3 +1,5 @@
+# Selfhealing Code w/ GPT-4 (or 3)
+
 Curious weekend experiment building scripts that use OpenAI models to fix their own errors.
 
 Run the [main.py](selfheal-py-2/main.py) file and watch GPT do it's work.
