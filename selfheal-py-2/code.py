@@ -36,8 +36,11 @@ def code_output(input, suggestions):
 
 # Function to generate the tests prompt and generate the tests.
 def code_tests(input, output, prev_tests='No tests written yet', test_results='No tests run yet'):
+	# Simplified prompt excluding the previous tests and test results
+	prompt = f"Write tests for the following code (stored in the local directory as 'output.py'):\n{output}. Previous tests failed in this way: {test_results}\n{code_prompt_boilerplate}\n\nYour new test code:"
+
 	# generate a prompt asking the AI to write tests for the code to ensure it meets the user's needs
-	prompt = f"Write tests for the following code (stored in the local directory as 'output.py'):\n{output}\n\nYour previous tests (stored as 'tests.py'):\n{prev_tests}\nThe code should meet the following user need:\n{input}\n\nYour previous code failed with the following error(s):\n{test_results}\n\n{general_prompt_boilerplate}\n{code_prompt_boilerplate}\n\nYour new test code:"
+	# prompt = f"Write tests for the following code (stored in the local directory as 'output.py'):\n{output}\n\nYour previous tests (stored as 'tests.py'):\n{prev_tests}\nThe code should meet the following user need:\n{input}\n\nYour previous code failed with the following error(s):\n{test_results}\n\n{general_prompt_boilerplate}\n{code_prompt_boilerplate}\n\nYour new test code:"
 	tests = code(prompt)
 	with open("tests.py", "w") as f:
 		f.write(tests)

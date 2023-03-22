@@ -1,0 +1,1 @@
+Download and store locally one real cat meme. Don't use APIs.

@@ -21,7 +21,7 @@ def iteration(user_input, suggestions, output, tests):
         new_output = code_output(user_input, code_suggestions)
         new_tests = code_tests(user_input, new_output)
         return no_errors, code_suggestions, new_output, new_tests
-    else:
+    finally:
         test_errors = run_tests(tests)
         if test_errors == None:
             print('passing')

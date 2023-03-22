@@ -1,0 +1,5 @@
+1. Use the `requests` library to retrieve the text of the Wikipedia page for the International Space Station.
+2. Create an empty dictionary to store the letter counts.
+3. Loop through each character in the text and update the count in the dictionary if the character is a letter.
+4. Use the `matplotlib` library to create a histogram of the letter counts.
+5. Save the histogram to a local file using the `savefig` function.

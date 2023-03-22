@@ -4,7 +4,10 @@ import os
 def run_tests(tests):
     if run(tests) == None:
         # Delete the text file
-        os.remove('test_results.txt')
+        try:
+            os.remove('test_results.txt')
+        except:
+            pass
         return None
     else:
         os.system("python3 -m unittest tests.py > test_results.txt 2>&1")
@@ -26,9 +29,10 @@ def run(code):
 # Store the pseudo_code, output, and tests in separate files in a new subdirectory.
 def store_solutions(name, user_input, pseudo_code, output, tests):
     # First, create the subdirectory if it doesn't exist already. If it exists, raise an error.
-    if os.path.exists(f'solved/{name}'):
+    try:
+        os.mkdir(f'solved/{name}')
+    except:
         raise Exception('The directory already exists.')
-    os.mkdir(f'solved/{name}')
     # Then, create the files and write the code to them.
     with open(f'solved/{name}/input.txt', 'w') as f:
         f.write(user_input)
@@ -38,3 +42,6 @@ def store_solutions(name, user_input, pseudo_code, output, tests):
         f.write(output)
     with open(f'solved/{name}/tests.py', 'w') as f:
         f.write(tests)
+    
+    os.remove('output.py')
+    os.remove('tests.py')

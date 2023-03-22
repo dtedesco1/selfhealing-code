@@ -50,7 +50,13 @@ def generate_name(input):
 	name = name['choices'][0]['message']['content']
 	return name
 
-suggestions_boilerplate = "Make suggestions and recommendations, written out in detail. List steps to take. You can write some pseudocode--but don't overdo it, someone else will write the actual code."
+
+# Allow longer suggestions
+# suggestions_boilerplate = "Make suggestions and recommendations, written out in detail. List steps to take. You can write some pseudocode--but don't overdo it, someone else will write the actual code."
+
+# Enforce shorter suggestions.
+suggestions_boilerplate = "Make extremely brief suggestions and recommendations. Don't write full code. Imagine you are giving directions to yourself in as concise a way possible."
+
 
 def generate_pseudo_code(input):
 	prompt = f"How would you write a Python script that does the following:\n{input}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}"
@@ -58,6 +64,11 @@ def generate_pseudo_code(input):
 	return pseudo_code
 
 def generate_error_suggestions(input, prev_response, tests, test_results):
-	prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nWe ran the following tests (stored at 'tests.py'):\n{tests}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would address these while also ensuring you meet user needs?"
+	# Version to include tests and test results
+	# prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nWe ran the following tests (stored at 'tests.py'):\n{tests}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would address these while also ensuring you meet user needs?"
+	
+	# Version to exclude tests and test results
+	prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would you address these while also ensuring you meet user needs?"
+
 	error_suggestions = generate_suggestions(prompt)
 	return error_suggestions
