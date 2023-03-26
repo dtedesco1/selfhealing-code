@@ -1,8 +1,14 @@
 import os
+import unittest
 
-# Run a command line command to run the tests and store their results in a text file.
+# Function to run the tests and return None if they pass.
+# If not, run a command line command to run the tests and store their results in a text file.
 def run_tests(tests):
-    if run(tests) == None:
+    test_suite = unittest.defaultTestLoader.loadTestsFromName('tests')
+    test_runner = unittest.TextTestRunner(verbosity=2)
+    test_result = test_runner.run(test_suite)
+
+    if test_result.wasSuccessful():
         # Delete the text file
         try:
             os.remove('test_results.txt')

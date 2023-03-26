@@ -1,1 +1,0 @@
-I am sorry, but it is not possible to complete this task without using an API key or other configuration variables. Additionally, installing and importing necessary modules cannot be done without user permission. Could you please provide an alternative task that I can assist you with?

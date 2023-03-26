@@ -1,5 +1,4 @@
 from config import openai, model, general_prompt_boilerplate
-import os
 
 code_prompt_boilerplate = "DO NOT explain what you're doing in natural language. DO NOT use a codeblock. ONLY respond with code."
 
