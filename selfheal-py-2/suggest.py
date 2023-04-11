@@ -52,10 +52,10 @@ def generate_name(input):
 
 
 # Allow longer suggestions
-# suggestions_boilerplate = "Make suggestions and recommendations, written out in detail. List steps to take. You can write some pseudocode--but don't overdo it, someone else will write the actual code."
+suggestions_boilerplate = "Make suggestions and recommendations, written out in detail. List steps to take. You can write some pseudocode--but don't overdo it, someone else will write the actual code."
 
 # Enforce shorter suggestions.
-suggestions_boilerplate = "Make extremely brief suggestions and recommendations. Don't write full code. Imagine you are giving directions to yourself in as concise a way possible."
+# suggestions_boilerplate = "Make extremely brief suggestions and recommendations. Don't write full code. Imagine you are giving directions to yourself in as concise a way possible."
 
 
 def generate_pseudo_code(input):
@@ -65,10 +65,33 @@ def generate_pseudo_code(input):
 
 def generate_error_suggestions(input, prev_response, tests, test_results):
 	# Version to include tests and test results
-	# prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nWe ran the following tests (stored at 'tests.py'):\n{tests}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would address these while also ensuring you meet user needs?"
+	prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nWe ran the following tests (stored at 'tests.py'):\n{tests}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would address these while also ensuring you meet user needs?"
 	
 	# Version to exclude tests and test results
-	prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would you address these while also ensuring you meet user needs?"
+	# prompt = f"You previously produced a faulty response to the following prompt: 'Write Python code that solves the following prompt:\n{input}\nThe most recent faulty response was:\n{prev_response}\nThe faulty response failed the tests as such:\n{test_results}\n{general_prompt_boilerplate}\n{suggestions_boilerplate}\nHow would you address these while also ensuring you meet user needs?"
 
 	error_suggestions = generate_suggestions(prompt)
 	return error_suggestions
+
+# Define a function to check if the bot's response meets the user's needs.
+def completion_check(prompt):
+	# Send the user input to the model to generate a script
+	response = openai.ChatCompletion.create(
+		model=model,
+		messages=[
+			{"role": "system", "content": "You are a bot that judges if a piece of code meets a user's needs. You respond to prompts with only `True` or `False`."},
+			{"role": "user", "content": "User input is:  Write Python code that meets the following user need:\nPrint the word 'foobar'\nYour code was:  print('foobar')"},
+			{"role": "assistant", "content": "True"},
+			{"role": "user", "content": "Perfect! Thank you. Let's try another."},
+			{"role": "user", "content": "User input was:  Write Python code that meets the following user need:\nPrint the numbers 1 through 10'\nYour code was: print('def print_numbers():\n    for i in range(1, 9):\n        print(i)')"},
+			{"role": "assistant", "content": "False"},
+			{"role": "user", "content": "Perfect! Thank you. Let's try another."},
+			{"role": "user", "content": prompt,}],
+		max_tokens=3000,
+		n=1,
+		stop=None,
+		temperature=0.7
+	)
+	# Extract the generated script from the API response
+	response = response['choices'][0]['message']['content']
+	return response

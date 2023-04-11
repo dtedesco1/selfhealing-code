@@ -7,7 +7,7 @@ def run_tests(tests):
     test_suite = unittest.defaultTestLoader.loadTestsFromName('tests')
     test_runner = unittest.TextTestRunner(verbosity=2)
     test_result = test_runner.run(test_suite)
-
+    print(f'\n\n\n\nTests run:\n\n\n', test_result, '\n\n\n', test_result.wasSuccessful())
     if test_result.wasSuccessful():
         # Delete the text file
         try:
